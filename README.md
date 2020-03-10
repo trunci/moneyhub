@@ -8,6 +8,8 @@
 
 ### This API consists of a list of HTTP request urls that connect the server to the frontend with the required information
 
+### Make calls to `https://moneyhub-270423.appspot.com/`
+
 1. Get User Information
 	- Return type: user (struct)
 	- Params: cpf (int)

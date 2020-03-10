@@ -1,10 +1,10 @@
 # MoneyHub
 
-##Eduardo Trunci, Lucas Katayama, Davi Nakajima An, Bruno Rigo
-##GATech 
-##Entry for BRASA Hacks 2020
+## Eduardo Trunci, Lucas Katayama, Davi Nakajima An, Bruno Rigo
+## GATech 
+## Entry for BRASA Hacks 2020
 
-##API Usage
+## API Usage
 
 ### This API consists of a list of HTTP request urls that connect the server to the frontend with the required information
 

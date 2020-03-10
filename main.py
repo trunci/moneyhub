@@ -1,8 +1,9 @@
 # import datetime
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from google.cloud import datastore
-# from pynubank import Nubank
+from pynubank import Nubank
+import numpy as np
 
 
 # Stuff for Flask
@@ -17,7 +18,6 @@ def store_new_user(id, key, value):
     # Try to get
     # If found, update
     # Else, create
-    
     kind = 'user'
     name = id
     user_key = datastore_client.key(kind, name)
@@ -33,11 +33,9 @@ def fetch_user(cpf):
     user = datastore_client.get(user_key)
     return user
 
-
-@app.route('/davi')
+@app.route('/test')
 def davi():
     return "10"
-
 
 @app.route('/new/<int:cpf>/<name>')
 def store_user(cpf, name):
@@ -46,7 +44,6 @@ def store_user(cpf, name):
         return 'Success! Stored '+ str(cpf) + ', ' + str(name)
     else:
         return 'Failed. Try again'
-
 
 @app.route('/fetch_user/<int:cpf>')
 def get_user(cpf):
@@ -63,8 +60,18 @@ def update_user_info(cpf, field, value):
     datastore_client.put(user)
     return "Success"
 
+@app.route('/get_qr/')
+def get_qr():
+    # user needs to scan QR code to authenticate
+    uuid, qr_code = nu.get_qr_code()
+    qr_img = np.array(qr_code.get_image())
+    return jsonify(uuid=uuid, qr=qr_img)
+
+@app.route('/account/statements/<userid>/<password>/<uuid>')
+def get_statements(userid, password, uuid):
+    nu.authenticate_with_qr_code(str(userid), str(password), uuid)
+    return jsonify(extrato=nu.get_account_balance())
 
 
 if __name__ == '__main__':
-    
     app.run(host='127.0.0.1', port=8080, debug=True)

@@ -2,5 +2,5 @@ Flask==1.1.1
 google-cloud-storage
 google-cloud-datastore
 gunicorn==20.0.4
-requests==2.23.0
+requests==2.31.0
 qrcode==6.1
